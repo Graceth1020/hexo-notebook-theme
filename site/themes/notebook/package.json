@@ -1,0 +1,12 @@
+{
+  "name": "hexo-theme-notebook",
+  "version": "1.0.0",
+  "description": "A clean, modern Hexo theme for learning notes with responsive design and tag tree navigation",
+  "main": "package.json",
+  "keywords": ["hexo", "theme", "notebook", "learning", "blog"],
+  "license": "MIT",
+  "peerDependencies": {
+    "hexo": ">=7.0.0",
+    "hexo-renderer-ejs": ">=2.0.0"
+  }
+}
