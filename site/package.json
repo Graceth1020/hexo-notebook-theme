@@ -1,5 +1,5 @@
 {
-  "name": "site",
+  "name": "hexo-site",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "hexo": {
+    "version": "8.1.2"
+  },
   "dependencies": {
     "hexo": "^8.1.2",
     "hexo-generator-archive": "^2.0.0",
