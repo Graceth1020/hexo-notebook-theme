@@ -1,0 +1,12 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="copyright">
+      &copy; <%= theme.copyright.since %>–<%= new Date().getFullYear() %>
+      <a href="<%= url_for('/') %>"><%= theme.brand || config.title %></a>.
+      Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>.
+    </p>
+  </div>
+</footer>
+
+<!-- JS -->
+<script src="<%= url_for('/js/mobile-nav.js') %>"></script>
