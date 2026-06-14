@@ -1,5 +1,6 @@
 node_modules/
 site/node_modules/
 site/public/
+site/db.json
 *.log
 .DS_Store
