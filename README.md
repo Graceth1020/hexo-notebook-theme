@@ -16,8 +16,7 @@ A clean, responsive [Hexo](https://hexo.io/) theme with hierarchical tag tree na
 - [Writing Posts](#writing-posts)
 - [Local Development](#local-development)
 - [Deployment](#deployment)
-- [Branch Management](#branch-management)
-- [Publishing](#publishing)
+- [Publishing (npm)](#publishing-npm)
 - [License](#license)
 
 ---
@@ -242,7 +241,7 @@ The theme is linked via `npm install file:../hexo-theme-notebook` — changes to
 
 ### GitHub Pages (automatic)
 
-1. Push to `main`
+1. Push to `init`
 2. GitHub Actions builds and deploys via [the workflow](.github/workflows/deploy.yml)
 3. Your site is live at `https://<username>.github.io/<repo>/`
 
@@ -253,6 +252,8 @@ cd site
 npx hexo generate
 # Upload site/public/ to any static host (Netlify, Vercel, S3, etc.)
 ```
+
+---
 
 ## Publishing (npm)
 
