@@ -45,7 +45,7 @@
             if (!treeMap[post.tag_tree]) {
               treeMap[post.tag_tree] = { tree: post.tag_tree, posts: [] };
             }
-            treeMap[post.tag_tree].posts.push({ title: post.title, path: post.path });
+            treeMap[post.tag_tree].posts.push({ title: post.title, path: url_for(post.path) });
           }
         });
       }
