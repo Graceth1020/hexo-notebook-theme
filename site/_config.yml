@@ -9,7 +9,7 @@ timezone: Asia/Shanghai
 theme: notebook
 
 # URL
-url: https://example.github.io
+url: https://graceth1020.github.io
 root: /
 permalink: :year/:month/:title/
 permalink_defaults:
