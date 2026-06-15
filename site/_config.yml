@@ -9,8 +9,8 @@ timezone: Asia/Shanghai
 theme: notebook
 
 # URL
-url: https://graceth1020.github.io
-root: /
+url: https://graceth1020.github.io/hexo-notebook-theme
+root: /hexo-notebook-theme/
 permalink: :year/:month/:title/
 permalink_defaults:
 
