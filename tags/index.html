@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tags | Notebook</title>
+<meta name="description" content="个人学习笔记">
+
+<!-- 主题 CSS -->
+<link rel="stylesheet" href="/css/notebook.css">
+
+<!-- RSS（如果有） -->
+
+
+  <style>
+    /* 内联初始样式避免 FOUC */
+    .tag-tree-list { list-style: none; padding-left: 1.5em; margin: 0; }
+    .tag-tree-root { padding-left: 0; }
+    .tag-tree-toggle { cursor: pointer; user-select: none; }
+    .tag-tree-item { margin: 4px 0; }
+    .tag-tree-label { cursor: pointer; padding: 6px 8px; border-radius: 4px; display: inline-block; }
+    .tag-tree-label:hover { background: #eef2ff; }
+    .tag-tree-count { color: #999; font-size: 0.85em; margin-left: 4px; }
+    .tag-tree-children { display: none; }
+    .tag-tree-children.expanded { display: block; }
+    .tag-tree-post-link { display: block; padding: 3px 8px 3px 1.2em; font-size: 0.9em; color: #3b82f6; text-decoration: none; }
+    .tag-tree-post-link:hover { text-decoration: underline; }
+    .tag-tree-arrow { display: inline-block; width: 16px; transition: transform 0.2s; }
+    .tag-tree-arrow.expanded { transform: rotate(90deg); }
+  </style>
+<meta name="generator" content="Hexo 8.1.2"></head>
+<body>
+  <header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="/">
+      Notebook
+    </a>
+
+    <nav class="nav-desktop" id="navDesktop">
+      
+        
+          <a class="nav-link" href="/">Home</a>
+        
+          <a class="nav-link" href="/tags">Tags</a>
+        
+          <a class="nav-link" href="/archives">Archive</a>
+        
+      
+    </nav>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- 移动端导航遮罩 -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <div class="mobile-nav-panel">
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+      <nav class="mobile-nav-links">
+        
+          
+            <a class="mobile-nav-link" href="/">Home</a>
+          
+            <a class="mobile-nav-link" href="/tags">Tags</a>
+          
+            <a class="mobile-nav-link" href="/archives">Archive</a>
+          
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+  <main class="main-content">
+    <div class="container">
+      <h1 class="page-title">Tags</h1>
+
+      <div id="tagTreeContainer" class="tag-tree-container">
+        <!-- JS 动态渲染 -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <p class="copyright">
+      &copy; 2026–2026
+      <a href="/">Notebook</a>.
+      Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>.
+    </p>
+  </div>
+</footer>
+
+<!-- JS -->
+<script src="/js/mobile-nav.js"></script>
+
+  <script src="/js/tag-tree.js"></script>
+  <script>
+    // 从 Hexo 侧透传 tag_tree 数据
+    // 从所有文章的 tag_tree front-matter 构建树结构
+    
+    var TAG_TREE_DATA = [{"tree":"Tutorials/Getting Started","posts":[{"title":"Hello World","path":"/2026/06/hello-world/"}]},{"tree":"Blog/Welcome","posts":[{"title":"Welcome","path":"/2026/06/welcome/"}]},{"tree":"Tutorials/Markdown","posts":[{"title":"Markdown Syntax Guide","path":"/2026/06/markdown-syntax-guide/"}]}];
+    document.addEventListener('DOMContentLoaded', function() {
+      renderTagTree(TAG_TREE_DATA, 0);
+    });
+  </script>
+</body>
+</html>

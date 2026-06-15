@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown Syntax Guide | Notebook</title>
+<meta name="description" content="个人学习笔记">
+
+<!-- 主题 CSS -->
+<link rel="stylesheet" href="/css/notebook.css">
+
+<!-- RSS（如果有） -->
+
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+<body>
+  <header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="/">
+      Notebook
+    </a>
+
+    <nav class="nav-desktop" id="navDesktop">
+      
+        
+          <a class="nav-link" href="/">Home</a>
+        
+          <a class="nav-link" href="/tags">Tags</a>
+        
+          <a class="nav-link" href="/archives">Archive</a>
+        
+      
+    </nav>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- 移动端导航遮罩 -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <div class="mobile-nav-panel">
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+      <nav class="mobile-nav-links">
+        
+          
+            <a class="mobile-nav-link" href="/">Home</a>
+          
+            <a class="mobile-nav-link" href="/tags">Tags</a>
+          
+            <a class="mobile-nav-link" href="/archives">Archive</a>
+          
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+  <main class="main-content">
+    <article class="post-article">
+      <header class="post-header">
+        <time class="post-date" datetime="2026-06-08T14:35:05.000Z">
+          六月 08, 2026
+        </time>
+        <h1 class="post-title">Markdown Syntax Guide</h1>
+      </header>
+
+      <div class="post-body">
+        <p>A comprehensive guide to Markdown syntax supported by this theme.</p>
+<h2 id="Text-Formatting"><a href="#Text-Formatting" class="headerlink" title="Text Formatting"></a>Text Formatting</h2><ul>
+<li><strong>Bold</strong> and <em>italic</em> and <del>strikethrough</del></li>
+<li><code>Inline code</code> and <a target="_blank" rel="noopener" href="https://hexo.io/">links</a></li>
+<li><del>Mistaken text</del> with strikethrough</li>
+</ul>
+<h2 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h2><blockquote>
+<p>This is a blockquote.</p>
+<p>It can span multiple paragraphs.</p>
+</blockquote>
+<h3 id="Nested-blockquotes"><a href="#Nested-blockquotes" class="headerlink" title="Nested blockquotes"></a>Nested blockquotes</h3><blockquote>
+<p>Level 1</p>
+<blockquote>
+<p>Level 2</p>
+<blockquote>
+<p>Level 3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="Code-Blocks"><a href="#Code-Blocks" class="headerlink" title="Code Blocks"></a>Code Blocks</h2><h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">greet</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> message = <span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>!`</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">greet</span>(<span class="string">&#x27;Hexo&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.tag-tree-list</span> &#123;</span><br><span class="line">  <span class="attribute">list-style</span>: none;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">1.5em</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.tag-tree-toggle</span> &#123;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>):</span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="keyword">yield</span> a</span><br><span class="line">        a, b = b, a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(fibonacci(<span class="number">10</span>)))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><h3 id="Unordered"><a href="#Unordered" class="headerlink" title="Unordered"></a>Unordered</h3><ul>
+<li>Item one</li>
+<li>Item two<ul>
+<li>Nested item A</li>
+<li>Nested item B</li>
+</ul>
+</li>
+<li>Item three</li>
+</ul>
+<h3 id="Ordered"><a href="#Ordered" class="headerlink" title="Ordered"></a>Ordered</h3><ol>
+<li>First step</li>
+<li>Second step</li>
+<li>Third step</li>
+</ol>
+<h2 id="Tables"><a href="#Tables" class="headerlink" title="Tables"></a>Tables</h2><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Supported</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Headings</td>
+<td>✅</td>
+<td>H1–H6</td>
+</tr>
+<tr>
+<td>Lists</td>
+<td>✅</td>
+<td>Ordered &amp; unordered</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>✅</td>
+<td>Inline &amp; blocks</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td>✅</td>
+<td>With alignment</td>
+</tr>
+</tbody></table>
+<h2 id="Horizontal-Rules"><a href="#Horizontal-Rules" class="headerlink" title="Horizontal Rules"></a>Horizontal Rules</h2><hr>
+<p>Above this line is a horizontal rule.</p>
+
+      </div>
+
+      <footer class="post-footer">
+        
+  <div class="tag-breadcrumb">
+    <span class="tag-breadcrumb-label">Tags:</span>
+    
+      
+      <a class="tag-breadcrumb-link" href="/tags/Markdown/">Markdown</a>
+    
+      <span class="tag-breadcrumb-sep">|</span>
+      <a class="tag-breadcrumb-link" href="/tags/Reference/">Reference</a>
+    
+  </div>
+
+
+
+        <nav class="post-nav">
+          
+            <a class="post-nav-prev" href="/2026/06/hello-world/">
+              <span class="post-nav-label">Previous</span>
+              <span class="post-nav-title">Hello World</span>
+            </a>
+          
+          
+        </nav>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <p class="copyright">
+      &copy; 2026–2026
+      <a href="/">Notebook</a>.
+      Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>.
+    </p>
+  </div>
+</footer>
+
+<!-- JS -->
+<script src="/js/mobile-nav.js"></script>
+
+</body>
+</html>
