@@ -254,20 +254,6 @@ npx hexo generate
 # Upload site/public/ to any static host (Netlify, Vercel, S3, etc.)
 ```
 
----
-
-## Branch Management
-
-This project uses a simple branch strategy:
-
-| Branch | Purpose |
-|--------|---------|
-| `init` | Main development branch — contains the latest code |
-
-The `init` branch serves as both the development and release branch for now. Future iterations may introduce a `main`/`stable` branch for production releases.
-
----
-
 ## Publishing (npm)
 
 ```bash
