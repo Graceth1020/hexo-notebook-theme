@@ -2,6 +2,7 @@ node_modules/
 site/node_modules/
 site/public/
 site/db.json
+docs/
 .idea/
 *.log
 .DS_Store
