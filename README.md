@@ -101,7 +101,7 @@ Blog ──────────────────── click to expan
 
 ### 🚀 GitHub Pages Ready
 
-Push to `main` → auto-deploy via GitHub Actions. See [deployment workflow](.github/workflows/deploy.yml).
+Push to the default branch → auto-deploy via GitHub Actions. See [deployment workflow](.github/workflows/deploy.yml).
 
 ---
 
@@ -258,28 +258,13 @@ npx hexo generate
 
 ## Branch Management
 
-This project follows a release-based branching strategy:
+This project uses a simple branch strategy:
 
 | Branch | Purpose |
 |--------|---------|
-| `main` | Stable release — deployed to production |
-| `1.0` | Development branch for the 1.x line |
+| `init` | Main development branch — contains the latest code |
 
-**Workflow:**
-
-```bash
-# Work on the dev branch
-git checkout 1.0
-# ... make changes, commit ...
-git push origin 1.0
-
-# When stable, merge to main
-git checkout main
-git merge 1.0
-git push origin main
-```
-
-Features and fixes are developed on `1.0`, then merged into `main` when ready for release. Hotfixes can be applied directly to `main` and back-merged to `1.0`.
+The `init` branch serves as both the development and release branch for now. Future iterations may introduce a `main`/`stable` branch for production releases.
 
 ---
 
