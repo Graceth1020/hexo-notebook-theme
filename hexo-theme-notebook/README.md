@@ -36,17 +36,18 @@ brand: "Notebook"
 description: "Learning Notes"
 ```
 
-## Tag Hierarchy
+## Tag Tree
 
-Use `/` in tags to create a nested tree:
+Use the `tag_tree` front-matter field to place posts in the hierarchical tree:
 
 ```yaml
+title: Getting Started
 tags:
-  - "Grammar/Tenses/Present Perfect"
-  - "Usage"
+  - Hexo
+tag_tree: Tutorials/Getting Started
 ```
 
-This renders as an expandable tree on the `/tags/` page.
+This renders as an expandable tree on the `/tags/` page. `tag_tree` is independent from `tags` — see [the main README](../README.md#tag-tree) for details.
 
 ## License
 

@@ -1,8 +1,24 @@
 # Hexo Notebook Theme
 
-A clean, modern [Hexo](https://hexo.io/) theme for learning notes. Features a responsive design with Medium-like reading experience, hierarchical tag tree navigation, and GitHub Pages deployment support.
+A clean, responsive [Hexo](https://hexo.io/) theme with hierarchical tag tree navigation and Medium-like reading experience. Zero external JavaScript dependencies — just CSS and vanilla JS.
 
-> The theme is an independent npm package: [`hexo-theme-notebook`](./hexo-theme-notebook/)
+> The theme is an independent npm package at [`hexo-theme-notebook/`](./hexo-theme-notebook/).
+
+---
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Tag Tree](#tag-tree)
+- [Writing Posts](#writing-posts)
+- [Local Development](#local-development)
+- [Deployment](#deployment)
+- [Branch Management](#branch-management)
+- [Publishing](#publishing)
+- [License](#license)
 
 ---
 
@@ -13,64 +29,25 @@ A clean, modern [Hexo](https://hexo.io/) theme for learning notes. Features a re
 - Node.js >= 18
 - npm >= 9
 
-### 1. Use the existing site
+### Use the demo site
 
 ```bash
-# Clone or navigate to the project
-cd hexo-notebook-theme/site
-
-# Install dependencies
+cd site
 npm install
-
-# Start the dev server
 npx hexo server
 ```
 
-Visit http://localhost:4000
+Visit [http://localhost:4000](http://localhost:4000).
 
-### 2. Or start from scratch with this theme
+### Start a new site with this theme
 
 ```bash
-npm init hexo-site my-notes
-cd my-notes
+npm init hexo-site my-blog
+cd my-blog
 npm install hexo-theme-notebook
 ```
 
-Then set `theme: notebook` in `_config.yml`.
-
----
-
-## Project Structure
-
-```
-hexo-notebook-theme/
-├── hexo-theme-notebook/        # 📦 Standalone theme package (publishable to npm)
-│   ├── layout/                 # EJS templates
-│   │   ├── index.ejs           # Homepage — post list with pagination
-│   │   ├── post.ejs            # Single article page
-│   │   ├── tag-tree.ejs        # /tags/ — hierarchical tag tree
-│   │   ├── tag.ejs             # Posts filtered by tag
-│   │   ├── archive.ejs         # Monthly archive
-│   │   ├── page.ejs            # Generic page
-│   │   ├── 404.ejs             # Custom 404
-│   │   └── partials/           # Shared components
-│   ├── source/
-│   │   ├── css/notebook.css    # Responsive stylesheet
-│   │   └── js/
-│   │       ├── tag-tree.js     # Tag tree expand/collapse
-│   │       └── mobile-nav.js   # Hamburger menu
-│   ├── _config.yml             # Theme configuration
-│   └── package.json            # npm package manifest
-│
-├── site/                       # 🏗️ Example Hexo site
-│   ├── source/_posts/          # Your learning notes (.md)
-│   ├── scripts/                # Custom Hexo generators
-│   ├── _config.yml             # Site configuration
-│   └── package.json
-│
-├── .github/workflows/deploy.yml  # 🚀 GitHub Pages auto-deploy
-└── docs/                       # Design docs & implementation plans
-```
+Then set `theme: notebook` in your `_config.yml`.
 
 ---
 
@@ -84,39 +61,28 @@ hexo-notebook-theme/
 | Tablet | 768–1023px | 40px padding, hamburger menu |
 | Desktop | ≥1024px | 720px centered content, full nav bar |
 
-- Hamburger menu with slide-out panel and overlay
+- Slide-out mobile menu with overlay
 - Touch-friendly tap targets (≥44px)
 - Scrollable code blocks
 - Auto-resizing images
 
 ### 🏷️ Hierarchical Tag Tree
 
-Use `/` in your front-matter to create nested tags:
-
-```yaml
----
-title: present-perfect-tense
-tags:
-  - "Grammar/Tenses/Present Perfect"
-  - "Usage"
----
-```
-
-The `/tags/` page renders this as an expandable tree:
+The `/tags/` page renders an expandable tree from each post's `tag_tree` front-matter field:
 
 ```
-Grammar ──────────────────── click to expand
-├── Tenses
-│   ├── Present Perfect ··· [article links]
-│   └── Past Simple ······· [article links]
-└── Articles ·············· [article links]
+Tutorials ────────────── click to expand
+├── Getting Started ──── [post links]
+└── Markdown ─────────── [post links]
 
-Usage ────────────────────── [article links]
+Blog ──────────────────── click to expand
+└── Welcome ──────────── [post links]
 ```
 
-- JavaScript-powered expand/collapse
-- All folded by default (configurable via `expand_level`)
-- Sorted alphabetically
+- JavaScript expand/collapse with animated arrows
+- Configurable default expand depth
+- Alphabetically sorted
+- Posts appear only at leaf nodes
 
 ### 🎨 Design Tokens
 
@@ -124,70 +90,136 @@ Usage ────────────────────── [articl
 |------|-------|-------------|
 | Background | `#fafafa` | Warm white, easy on eyes |
 | Body text | `#2c3e50` | Dark blue-gray |
-| Headings | `#1a1a1a` | Pure black |
+| Headings | `#1a1a1a` | Near black |
 | Accent | `#3b82f6` | Clear blue |
 | Code/quote bg | `#f5f5f5` | Soft gray |
-| Tag chip | `#eef2ff` | Pale blue |
 
 - Font stack: `system-ui, -apple-system, 'Segoe UI', sans-serif`
 - Code: `'JetBrains Mono', 'Fira Code', monospace`
 - Body: 16px / line-height 1.8
 - Content max-width: 720px (optimal reading width)
 
-### 🚀 GitHub Pages Deployment
+### 🚀 GitHub Pages Ready
 
-Push to `main` → automatically deployed via GitHub Actions.
+Push to `main` → auto-deploy via GitHub Actions. See [deployment workflow](.github/workflows/deploy.yml).
 
 ---
 
-## Usage
+## Project Structure
 
-### Writing notes
-
-Create a new post:
-
-```bash
-cd site
-npx hexo new "my-new-note"
+```
+hexo-notebook-theme/
+├── hexo-theme-notebook/        # 📦 Standalone theme package
+│   ├── layout/                 # EJS templates
+│   │   ├── index.ejs           # Homepage — post list with pagination
+│   │   ├── post.ejs            # Single article page
+│   │   ├── tag-tree.ejs        # /tags/ — hierarchical tag tree
+│   │   ├── tag.ejs             # Posts filtered by tag
+│   │   ├── archive.ejs         # Monthly archive
+│   │   ├── page.ejs            # Generic page (about, contact, etc.)
+│   │   ├── 404.ejs             # Custom 404 page
+│   │   └── partials/           # Shared components (header, footer, etc.)
+│   ├── source/
+│   │   ├── css/notebook.css    # Stylesheet
+│   │   └── js/
+│   │       ├── tag-tree.js     # Tag tree expand/collapse
+│   │       └── mobile-nav.js   # Hamburger menu
+│   ├── _config.yml             # Theme configuration
+│   └── package.json            # npm package manifest
+│
+├── site/                       # 🏗️ Example site
+│   ├── source/_posts/          # Sample posts (.md)
+│   ├── scripts/                # Custom Hexo generators
+│   ├── _config.yml             # Site configuration
+│   └── package.json
+│
+├── .github/workflows/deploy.yml  # CI/CD
+└── docs/                       # Design docs & plans
 ```
 
-Edit the generated file in `site/source/_posts/my-new-note.md`:
-
-```markdown
----
-title: my-new-note
-date: 2026-06-14 20:00:00
-tags:
-  - "Category/Subcategory"
-  - "Another Tag"
 ---
 
-## Your content here
-```
+## Configuration
 
-### Theme configuration
-
-Edit `hexo-theme-notebook/_config.yml`:
+### Theme config (`hexo-theme-notebook/_config.yml`)
 
 ```yaml
+# Navigation menu
 menu:
   Home: /
   Tags: /tags
   Archive: /archives
 
+# Site branding
 brand: "Notebook"
-description: "Learning Notes"
+description: "A clean Hexo theme for learning notes"
 
+# Tag tree
 tag_tree:
   enable: true
-  expand_level: 0       # Auto-expand depth (0 = all collapsed)
+  expand_level: 0       # levels auto-expanded (0 = all collapsed)
 ```
 
-### Publish the theme
+### Site config (`site/_config.yml`)
+
+```yaml
+theme: notebook
+
+# Tag directory for clean URLs
+tag_dir: tags
+```
+
+---
+
+## Tag Tree
+
+The tag tree is powered by the `tag_tree` front-matter field — a **separate attribute** from Hexo's built-in `tags`:
+
+```yaml
+---
+title: Getting Started with Hexo
+tags:
+  - Hexo
+  - Tutorial
+tag_tree: Tutorials/Getting Started
+---
+```
+
+- `tags` — flat labels for Hexo's built-in tag pages (`/tags/hexo/`)
+- `tag_tree` — `/`-separated path defining where the post appears in the tree on `/tags/`
+
+They are independent: a post can have tags without a `tag_tree` (won't appear in the tree), or a `tag_tree` without matching tags.
+
+### Tree rules
+
+- Posts appear **only at leaf nodes** — internal nodes are expandable folders
+- Sorted alphabetically at each level
+- Multiple posts can share the same `tag_tree` path
+
+---
+
+## Writing Posts
 
 ```bash
-cd hexo-theme-notebook
-npm publish
+cd site
+npx hexo new "my-post-title"
+```
+
+Edit the generated file:
+
+```markdown
+---
+title: My Post Title
+date: 2026-06-15 20:00:00
+tags:
+  - Tag1
+  - Tag2
+tag_tree: Category/Subcategory
+---
+
+## Content goes here
+
+Your markdown content...
 ```
 
 ---
@@ -195,35 +227,70 @@ npm publish
 ## Local Development
 
 ```bash
-# Start dev server with live reload
+# Start dev server
 cd site && npx hexo server
 
 # Clean and rebuild
 cd site && npx hexo clean && npx hexo generate
-
-# Create a new post
-cd site && npx hexo new "post-title"
 ```
 
-The theme is linked via `npm install file:../hexo-theme-notebook` — changes to the theme source are reflected immediately.
+The theme is linked via `npm install file:../hexo-theme-notebook` — changes to `hexo-theme-notebook/` are reflected immediately (a server restart may be required for layout changes).
 
 ---
 
-## Translation Feature (Planned)
+## Deployment
 
-Translation support via Tencent Cloud API is designed but not yet implemented. The storage layer uses an **Adapter pattern** to support future backends:
+### GitHub Pages (automatic)
 
-```typescript
-interface TranslationStorage {
-  save(record): Promise<TranslationRecord>
-  getAll(): Promise<TranslationRecord[]>
-  getById(id: string): Promise<TranslationRecord | null>
-  delete(id: string): Promise<void>
-  search(query: string): Promise<TranslationRecord[]>
-}
+1. Push to `main`
+2. GitHub Actions builds and deploys via [the workflow](.github/workflows/deploy.yml)
+3. Your site is live at `https://<username>.github.io/<repo>/`
+
+### Other hosting
+
+```bash
+cd site
+npx hexo generate
+# Upload site/public/ to any static host (Netlify, Vercel, S3, etc.)
 ```
 
-Planned adapters: localStorage, IndexedDB, remote API.
+---
+
+## Branch Management
+
+This project follows a release-based branching strategy:
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Stable release — deployed to production |
+| `1.0` | Development branch for the 1.x line |
+
+**Workflow:**
+
+```bash
+# Work on the dev branch
+git checkout 1.0
+# ... make changes, commit ...
+git push origin 1.0
+
+# When stable, merge to main
+git checkout main
+git merge 1.0
+git push origin main
+```
+
+Features and fixes are developed on `1.0`, then merged into `main` when ready for release. Hotfixes can be applied directly to `main` and back-merged to `1.0`.
+
+---
+
+## Publishing (npm)
+
+```bash
+cd hexo-theme-notebook
+npm publish
+```
+
+Ensure version is bumped in `package.json` first.
 
 ---
 
