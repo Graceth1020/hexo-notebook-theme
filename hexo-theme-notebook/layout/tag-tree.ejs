@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+  <%- partial('partials/head') %>
+  <style>
+    /* 内联初始样式避免 FOUC */
+    .tag-tree-list { list-style: none; padding-left: 1.5em; margin: 0; }
+    .tag-tree-root { padding-left: 0; }
+    .tag-tree-toggle { cursor: pointer; user-select: none; }
+    .tag-tree-item { margin: 4px 0; }
+    .tag-tree-label { cursor: pointer; padding: 6px 8px; border-radius: 4px; display: inline-block; }
+    .tag-tree-label:hover { background: #eef2ff; }
+    .tag-tree-count { color: #999; font-size: 0.85em; margin-left: 4px; }
+    .tag-tree-children { display: none; }
+    .tag-tree-children.expanded { display: block; }
+    .tag-tree-post-link { display: block; padding: 3px 8px 3px 1.2em; font-size: 0.9em; color: #3b82f6; text-decoration: none; }
+    .tag-tree-post-link:hover { text-decoration: underline; }
+    .tag-tree-arrow { display: inline-block; width: 16px; transition: transform 0.2s; }
+    .tag-tree-arrow.expanded { transform: rotate(90deg); }
+  </style>
+</head>
+<body>
+  <%- partial('partials/header') %>
+
+  <main class="main-content">
+    <div class="container">
+      <h1 class="page-title">Tags</h1>
+
+      <div id="tagTreeContainer" class="tag-tree-container">
+        <!-- JS 动态渲染 -->
+      </div>
+    </div>
+  </main>
+
+  <%- partial('partials/footer') %>
+  <script src="<%= url_for('/js/tag-tree.js') %>"></script>
+  <script>
+    // 从 Hexo 侧透传 tag_tree 数据
+    // 从所有文章的 tag_tree front-matter 构建树结构
+    <%
+      var treeMap = {};
+      if (site.posts) {
+        site.posts.toArray().forEach(function(post) {
+          if (post.tag_tree) {
+            if (!treeMap[post.tag_tree]) {
+              treeMap[post.tag_tree] = { tree: post.tag_tree, posts: [] };
+            }
+            treeMap[post.tag_tree].posts.push({ title: post.title, path: url_for(post.path) });
+          }
+        });
+      }
+      var treeData = Object.keys(treeMap).map(function(key) { return treeMap[key]; });
+    %>
+    var TAG_TREE_DATA = <%- JSON.stringify(treeData) %>;
+    document.addEventListener('DOMContentLoaded', function() {
+      renderTagTree(TAG_TREE_DATA, <%= theme.tag_tree.expand_level %>);
+    });
+  </script>
+</body>
+</html>

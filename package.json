@@ -1,0 +1,11 @@
+{
+  "name": "hexo-notebook-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "学习笔记 Hexo 站点",
+  "scripts": {
+    "dev": "cd site && npx hexo server",
+    "build": "cd site && npx hexo generate",
+    "deploy": "cd site && npx hexo deploy"
+  }
+}

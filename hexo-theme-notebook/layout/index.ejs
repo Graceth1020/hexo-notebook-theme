@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+  <%- partial('partials/head') %>
+</head>
+<body>
+  <%- partial('partials/header') %>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="post-list">
+        <% page.posts.each(function(post) { %>
+          <article class="post-card">
+            <time class="post-card-date" datetime="<%= date_xml(post.date) %>">
+              <%= date(post.date, 'MMM DD, YYYY') %>
+            </time>
+            <h2 class="post-card-title">
+              <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+            </h2>
+            <% if (theme.index.show_excerpt && post.excerpt) { %>
+              <div class="post-card-excerpt">
+                <%= post.excerpt %>
+              </div>
+            <% } %>
+            <div class="post-card-tags">
+              <% if (post.tags && post.tags.length) { %>
+                <% post.tags.each(function(tag) { %>
+                  <a class="tag-chip" href="<%= url_for(tag.path) %>"><%= tag.name %></a>
+                <% }) %>
+              <% } %>
+            </div>
+          </article>
+        <% }) %>
+      </section>
+
+      <!-- 分页 -->
+      <% if (page.total > 1) { %>
+        <nav class="pagination">
+          <% if (page.prev) { %>
+            <a class="pagination-prev" href="<%= url_for(page.prev_link) %>">&larr; Newer</a>
+          <% } %>
+          <span class="pagination-info">Page <%= page.current %> of <%= page.total %></span>
+          <% if (page.next) { %>
+            <a class="pagination-next" href="<%= url_for(page.next_link) %>">Older &rarr;</a>
+          <% } %>
+        </nav>
+      <% } %>
+    </div>
+  </main>
+
+  <%- partial('partials/footer') %>
+</body>
+</html>

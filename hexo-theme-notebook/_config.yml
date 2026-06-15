@@ -1,0 +1,36 @@
+# === 主题配置 hexo-theme-notebook ===
+
+# 导航菜单
+menu:
+  Home: /
+  Tags: /tags
+  Archive: /archives
+
+# 站点品牌
+brand: "Notebook"
+description: "学习笔记"
+
+# 标签树
+tag_tree:
+  enable: true
+  expand_level: 0
+
+# 首页
+index:
+  posts_per_page: 10
+  show_excerpt: true
+  excerpt_length: 150
+
+# 社交链接
+social:
+  github: ""
+  twitter: ""
+
+# 响应式断点
+breakpoints:
+  tablet: 768px
+  desktop: 1024px
+
+# 页脚版权
+copyright:
+  since: 2026
