@@ -2,8 +2,9 @@
 title: usage-of-change-words
 date: 2026-06-08 22:35:05
 tags:
-  - "Grammar/Vocabulary/Change Words"
-  - "Usage"
+  - Change Words
+  - Usage
+tag_tree: Grammar/Vocabulary/Change Words
 ---
 
 ## Common Change Words
