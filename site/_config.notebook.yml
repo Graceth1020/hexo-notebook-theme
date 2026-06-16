@@ -1,11 +1,4 @@
-# ============================================================
-# Theme override config — place this file in your Hexo site root
-# and rename it to _config.notebook.yml. Hexo will automatically
-# deep-merge it with the theme's own _config.yml, so you only
-# need to write the fields you want to override.
-# ============================================================
-
-# === Site branding (shown in the page title and nav bar) ===
+# copy from _config.notebook.example.yml
 brand: "My Notebook"
 description: "Personal Learning Notes"
 
