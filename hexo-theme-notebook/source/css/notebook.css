@@ -75,6 +75,22 @@ code {
   transition: color 0.2s;
 }
 .nav-link:hover { color: #3b82f6; text-decoration: none; }
+.github-icon { vertical-align: middle; }
+
+/* 右侧区域：导航链接 + 操作区 */
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+/* 操作区（GitHub 图标 + 汉堡菜单） */
+.header-actions { display: flex; align-items: center; gap: 6px; }
+.header-github {
+  display: flex;
+  align-items: center;
+  color: #999;
+  padding: 6px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+.header-github:hover { color: #1a1a1a; background: #f0f0f0; text-decoration: none; }
 
 /* 汉堡菜单 */
 .hamburger {
@@ -131,6 +147,7 @@ code {
   border-bottom: 1px solid #eee;
 }
 .mobile-nav-link:hover { color: #3b82f6; text-decoration: none; }
+.mobile-nav-github { display: flex; align-items: center; gap: 8px; color: #999; }
 
 /* === 文章列表 === */
 .post-list { display: flex; flex-direction: column; gap: 32px; }
