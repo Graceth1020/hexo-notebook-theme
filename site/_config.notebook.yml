@@ -1,0 +1,39 @@
+# ============================================================
+# Theme override config — place this file in your Hexo site root
+# and rename it to _config.notebook.yml. Hexo will automatically
+# deep-merge it with the theme's own _config.yml, so you only
+# need to write the fields you want to override.
+# ============================================================
+
+# === Site branding (shown in the page title and nav bar) ===
+brand: "My Notebook"
+description: "Personal Learning Notes"
+
+# === Navigation menu ===
+menu:
+  Home: /
+  Archive: /archives
+  Tags: /tags
+
+# === Social links (leave blank to hide) ===
+social:
+  # When set, a GitHub icon appears in the desktop nav and
+  # stays visible in the header on mobile (alongside the
+  # hamburger menu).
+  github: https://graceth1020.github.io/hexo-notebook-theme/
+  twitter: ""
+
+# === Tag tree ===
+tag_tree:
+  enable: true
+  expand_level: 0        # 0 = all collapsed, 1 = expand first level, 2 = expand first two levels
+
+# === Homepage post list ===
+index:
+  posts_per_page: 10     # Posts per page
+  show_excerpt: true     # Whether to show excerpts
+  excerpt_length: 150    # Excerpt character limit
+
+# === Footer copyright ===
+copyright:
+  since: 2026
