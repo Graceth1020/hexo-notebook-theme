@@ -205,6 +205,27 @@ code {
 .post-body p { margin: 1em 0; }
 .post-body ul, .post-body ol { margin: 1em 0; padding-left: 24px; }
 .post-body li { margin: 0.3em 0; }
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.95em;
+  overflow-x: auto;
+  display: block;
+}
+.post-body th, .post-body td {
+  border: 1px solid #d0d7de;
+  padding: 10px 14px;
+  text-align: left;
+  line-height: 1.6;
+}
+.post-body th {
+  background: #f0f4f8;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.post-body td { background: #fff; }
+.post-body tbody tr:nth-child(even) td { background: #f8f9fb; }
 
 /* 标签面包屑 */
 .tag-breadcrumb { margin: 24px 0; padding: 12px 0; border-top: 1px solid #e8e8e8; font-size: 14px; }
