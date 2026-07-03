@@ -15,12 +15,13 @@
         <h1 class="post-title"><%= page.title %></h1>
       </header>
 
+      <%- partial('partials/tag-breadcrumb', { post: page }) %>
+
       <div class="post-body">
         <%- page.content %>
       </div>
 
       <footer class="post-footer">
-        <%- partial('partials/tag-breadcrumb', { post: page }) %>
 
         <nav class="post-nav">
           <% if (page.prev) { %>
