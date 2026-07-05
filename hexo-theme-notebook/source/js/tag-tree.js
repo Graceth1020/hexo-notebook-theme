@@ -40,7 +40,7 @@
     li.className = 'tag-tree-item';
 
     if (hasChildren) {
-      // 有子节点 → 可展开/收起（文件夹节点，无文章）
+      // 有子节点 → 可展开/收起（文件夹节点，也可能自身挂有文章）
       var toggle = document.createElement('span');
       toggle.className = 'tag-tree-toggle';
 
@@ -56,6 +56,19 @@
 
       var childrenContainer = document.createElement('ul');
       childrenContainer.className = 'tag-tree-list tag-tree-children';
+
+      // 如果该节点自身也有文章，优先渲染（作为该分类下的直接文章）
+      if (hasPosts) {
+        node.posts.forEach(function(post) {
+          var postLi = document.createElement('li');
+          var postLink = document.createElement('a');
+          postLink.className = 'tag-tree-post-link';
+          postLink.href = post.path;
+          postLink.textContent = post.title;
+          postLi.appendChild(postLink);
+          childrenContainer.appendChild(postLi);
+        });
+      }
 
       // 渲染子节点（按名称排序）
       Object.keys(node.children).sort().forEach(function(key) {
