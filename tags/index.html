@@ -23,10 +23,12 @@
     .tag-tree-count { color: #999; font-size: 0.85em; margin-left: 4px; }
     .tag-tree-children { display: none; }
     .tag-tree-children.expanded { display: block; }
-    .tag-tree-post-link { display: block; padding: 3px 8px 3px 1.2em; font-size: 0.9em; color: #3b82f6; text-decoration: none; }
+    .tag-tree-post-item { display: flex; align-items: baseline; padding: 3px 8px 3px 1.2em; }
+    .tag-tree-post-link { font-size: 0.9em; color: #3b82f6; text-decoration: none; }
     .tag-tree-post-link:hover { text-decoration: underline; }
     .tag-tree-arrow { display: inline-block; width: 16px; transition: transform 0.2s; }
     .tag-tree-arrow.expanded { transform: rotate(90deg); }
+    .tag-tree-post-date { color: #999; font-size: 0.8em; margin-left: 8px; }
   </style>
 <meta name="generator" content="Hexo 8.1.2"></head>
 <body>
@@ -119,7 +121,7 @@
     // 从 Hexo 侧透传 tag_tree 数据
     // 从所有文章的 tag_tree front-matter 构建树结构
     
-    var TAG_TREE_DATA = [{"tree":"Tutorials/Markdown","posts":[{"title":"Markdown Syntax Guide","path":"/hexo-notebook-theme/2026/06/markdown-syntax-guide/"}]},{"tree":"Blog/Welcome","posts":[{"title":"Welcome","path":"/hexo-notebook-theme/2026/06/welcome/"}]},{"tree":"Tutorials/Getting Started","posts":[{"title":"Hello World","path":"/hexo-notebook-theme/2026/06/hello-world/"}]}];
+    var TAG_TREE_DATA = [{"tree":"Blog/Welcome","posts":[{"title":"Welcome","path":"/hexo-notebook-theme/2026/06/welcome/","date":"2026-06-15T04:00:00.000Z"}]},{"tree":"Tutorials/Getting Started","posts":[{"title":"Hello World","path":"/hexo-notebook-theme/2026/06/hello-world/","date":"2026-06-10T12:15:00.000Z"}]},{"tree":"Tutorials/Markdown","posts":[{"title":"Markdown Syntax Guide","path":"/hexo-notebook-theme/2026/06/markdown-syntax-guide/","date":"2026-06-08T14:35:05.000Z"}]}];
     document.addEventListener('DOMContentLoaded', function() {
       renderTagTree(TAG_TREE_DATA, 0);
     });

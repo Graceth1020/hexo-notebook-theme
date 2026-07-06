@@ -61,11 +61,21 @@
       if (hasPosts) {
         node.posts.forEach(function(post) {
           var postLi = document.createElement('li');
+          postLi.className = 'tag-tree-post-item';
           var postLink = document.createElement('a');
           postLink.className = 'tag-tree-post-link';
           postLink.href = post.path;
           postLink.textContent = post.title;
           postLi.appendChild(postLink);
+          // 显示文章日期
+          if (post.date) {
+            var postDate = document.createElement('span');
+            postDate.className = 'tag-tree-post-date';
+            var d = new Date(post.date);
+            var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            postDate.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+            postLi.appendChild(postDate);
+          }
           childrenContainer.appendChild(postLi);
         });
       }
@@ -101,11 +111,21 @@
       postsContainer.className = 'tag-tree-list tag-tree-children expanded';
       node.posts.forEach(function(post) {
         var postLi = document.createElement('li');
+        postLi.className = 'tag-tree-post-item';
         var postLink = document.createElement('a');
         postLink.className = 'tag-tree-post-link';
         postLink.href = post.path;
         postLink.textContent = post.title;
         postLi.appendChild(postLink);
+        // 显示文章日期
+        if (post.date) {
+          var postDate = document.createElement('span');
+          postDate.className = 'tag-tree-post-date';
+          var date = new Date(post.date);
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          postDate.textContent = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+          postLi.appendChild(postDate);
+        }
         postsContainer.appendChild(postLi);
       });
       li.appendChild(postsContainer);
