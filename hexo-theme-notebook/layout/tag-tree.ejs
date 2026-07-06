@@ -13,10 +13,12 @@
     .tag-tree-count { color: #999; font-size: 0.85em; margin-left: 4px; }
     .tag-tree-children { display: none; }
     .tag-tree-children.expanded { display: block; }
-    .tag-tree-post-link { display: block; padding: 3px 8px 3px 1.2em; font-size: 0.9em; color: #3b82f6; text-decoration: none; }
+    .tag-tree-post-item { display: flex; align-items: baseline; padding: 3px 8px 3px 1.2em; }
+    .tag-tree-post-link { font-size: 0.9em; color: #3b82f6; text-decoration: none; }
     .tag-tree-post-link:hover { text-decoration: underline; }
     .tag-tree-arrow { display: inline-block; width: 16px; transition: transform 0.2s; }
     .tag-tree-arrow.expanded { transform: rotate(90deg); }
+    .tag-tree-post-date { color: #999; font-size: 0.8em; margin-left: 8px; }
   </style>
 </head>
 <body>
@@ -45,10 +47,20 @@
             if (!treeMap[post.tag_tree]) {
               treeMap[post.tag_tree] = { tree: post.tag_tree, posts: [] };
             }
-            treeMap[post.tag_tree].posts.push({ title: post.title, path: url_for(post.path) });
+            treeMap[post.tag_tree].posts.push({
+              title: post.title,
+              path: url_for(post.path),
+              date: post.date
+            });
           }
         });
       }
+      // 每个标签组内的文章按时间倒序排列（最新的在前）
+      Object.keys(treeMap).forEach(function(key) {
+        treeMap[key].posts.sort(function(a, b) {
+          return b.date - a.date;
+        });
+      });
       var treeData = Object.keys(treeMap).map(function(key) { return treeMap[key]; });
     %>
     var TAG_TREE_DATA = <%- JSON.stringify(treeData) %>;
