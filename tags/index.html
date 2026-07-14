@@ -119,11 +119,14 @@
   <script src="/hexo-notebook-theme/js/tag-tree.js"></script>
   <script>
     // 从 Hexo 侧透传 tag_tree 数据
-    // 从所有文章的 tag_tree front-matter 构建树结构
+    // 根据 theme.tag_tree.mode 决定数据来源:
+    //   'folder'      —— 从 _posts/ 文件夹路径自动生成
+    //   'frontmatter' —— 从文章 front-matter 的 tag_tree 属性读取
     
-    var TAG_TREE_DATA = [{"tree":"Blog/Welcome","posts":[{"title":"Welcome","path":"/hexo-notebook-theme/2026/06/welcome/","date":"2026-06-15T04:00:00.000Z"}]},{"tree":"Tutorials/Getting Started","posts":[{"title":"Hello World","path":"/hexo-notebook-theme/2026/06/hello-world/","date":"2026-06-10T12:15:00.000Z"}]},{"tree":"Tutorials/Markdown","posts":[{"title":"Markdown Syntax Guide","path":"/hexo-notebook-theme/2026/06/markdown-syntax-guide/","date":"2026-06-08T14:35:05.000Z"}]}];
+    var TAG_TREE_DATA = [];
+    var DIRECT_POSTS = [{"title":"Welcome","path":"/hexo-notebook-theme/2026/06/welcome/","date":"2026-06-15T04:00:00.000Z"},{"title":"Hello World","path":"/hexo-notebook-theme/2026/06/hello-world/","date":"2026-06-10T12:15:00.000Z"},{"title":"Markdown Syntax Guide","path":"/hexo-notebook-theme/2026/06/markdown-syntax-guide/","date":"2026-06-08T14:35:05.000Z"}];
     document.addEventListener('DOMContentLoaded', function() {
-      renderTagTree(TAG_TREE_DATA, 0);
+      renderTagTree(TAG_TREE_DATA, 0, DIRECT_POSTS);
     });
   </script>
 </body>

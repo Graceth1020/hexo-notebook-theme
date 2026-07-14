@@ -136,10 +136,11 @@
 
   /**
    * 主入口：渲染 tag 树到 DOM
-   * @param {Array} flatTags - 扁平标签数据
+   * @param {Array} flatTags - 扁平标签数据 [{tree: "A/B", posts: [...]}]
    * @param {number} expandLevel - 默认展开层级
+   * @param {Array} [directPosts] - 无目录分组的文章列表，渲染在根级
    */
-  window.renderTagTree = function(flatTags, expandLevel) {
+  window.renderTagTree = function(flatTags, expandLevel, directPosts) {
     expandLevel = expandLevel || 0;
     var container = document.getElementById('tagTreeContainer');
     if (!container) return;
@@ -151,6 +152,36 @@
     Object.keys(root.children).sort().forEach(function(key) {
       renderNode(root.children[key], treeList, expandLevel, 0);
     });
+
+    // 渲染无目录分组的直接文章（扁平文章）到根级
+    if (directPosts && directPosts.length > 0) {
+      // 如果树节点非空则加一条分割线
+      if (Object.keys(root.children).length > 0) {
+        var divider = document.createElement('li');
+        divider.className = 'tag-tree-item tag-tree-divider';
+        divider.style.cssText = 'border-top:1px dashed #ddd; margin:8px 0; list-style:none;';
+        treeList.appendChild(divider);
+      }
+      directPosts.forEach(function(post) {
+        var li = document.createElement('li');
+        li.className = 'tag-tree-post-item';
+        li.style.paddingLeft = '1.5em';
+        var link = document.createElement('a');
+        link.className = 'tag-tree-post-link';
+        link.href = post.path;
+        link.textContent = post.title;
+        li.appendChild(link);
+        if (post.date) {
+          var dateSpan = document.createElement('span');
+          dateSpan.className = 'tag-tree-post-date';
+          var d = new Date(post.date);
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          dateSpan.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+          li.appendChild(dateSpan);
+        }
+        treeList.appendChild(li);
+      });
+    }
 
     container.appendChild(treeList);
   };
