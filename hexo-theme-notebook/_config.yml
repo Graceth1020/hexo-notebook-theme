@@ -14,6 +14,9 @@ description: "学习笔记"
 tag_tree:
   enable: true
   expand_level: 0
+  # mode: folder  —— 根据 _posts/ 下的文件夹路径自动生成
+  # mode: frontmatter —— 使用文章 front-matter 中的 tag_tree 属性
+  mode: folder
 
 # 首页
 index:

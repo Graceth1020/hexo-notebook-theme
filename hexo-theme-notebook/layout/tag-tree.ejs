@@ -38,16 +38,50 @@
   <script src="<%= url_for('/js/tag-tree.js') %>"></script>
   <script>
     // 从 Hexo 侧透传 tag_tree 数据
-    // 从所有文章的 tag_tree front-matter 构建树结构
+    // 根据 theme.tag_tree.mode 决定数据来源:
+    //   'folder'      —— 从 _posts/ 文件夹路径自动生成
+    //   'frontmatter' —— 从文章 front-matter 的 tag_tree 属性读取
     <%
+      var tagTreeMode = theme.tag_tree && theme.tag_tree.mode || 'folder';
       var treeMap = {};
+      var directPosts = [];
+
       if (site.posts) {
         site.posts.toArray().forEach(function(post) {
-          if (post.tag_tree) {
-            if (!treeMap[post.tag_tree]) {
-              treeMap[post.tag_tree] = { tree: post.tag_tree, posts: [] };
+          var treePath = null;
+
+          if (tagTreeMode === 'frontmatter') {
+            // mode: frontmatter — 使用文章 front-matter 中的 tag_tree
+            if (post.tag_tree) {
+              treePath = post.tag_tree;
             }
-            treeMap[post.tag_tree].posts.push({
+          } else {
+            // mode: folder — 从 _posts/ 下的文件夹路径自动生成
+            var sourcePath = (post.source || '').replace(/\\/g, '/');
+            var postsPrefix = '_posts/';
+            if (sourcePath.startsWith(postsPrefix)) {
+              var relativePath = sourcePath.substring(postsPrefix.length);
+              var lastSlash = relativePath.lastIndexOf('/');
+              if (lastSlash > 0) {
+                // 在子目录中：用目录路径作为 tag_tree
+                treePath = relativePath.substring(0, lastSlash);
+              }
+              // 扁平文章（直接在 _posts/ 下）: treePath 保持 null，归入 directPosts
+            }
+          }
+
+          if (treePath) {
+            if (!treeMap[treePath]) {
+              treeMap[treePath] = { tree: treePath, posts: [] };
+            }
+            treeMap[treePath].posts.push({
+              title: post.title,
+              path: url_for(post.path),
+              date: post.date
+            });
+          } else {
+            // 没有 tag_tree 路径的文章归入 directPosts（扁平文章）
+            directPosts.push({
               title: post.title,
               path: url_for(post.path),
               date: post.date
@@ -55,17 +89,24 @@
           }
         });
       }
+
       // 每个标签组内的文章按时间倒序排列（最新的在前）
       Object.keys(treeMap).forEach(function(key) {
         treeMap[key].posts.sort(function(a, b) {
           return b.date - a.date;
         });
       });
+      // directPosts 也按时间倒序排列
+      directPosts.sort(function(a, b) {
+        return b.date - a.date;
+      });
+
       var treeData = Object.keys(treeMap).map(function(key) { return treeMap[key]; });
     %>
     var TAG_TREE_DATA = <%- JSON.stringify(treeData) %>;
+    var DIRECT_POSTS = <%- JSON.stringify(directPosts) %>;
     document.addEventListener('DOMContentLoaded', function() {
-      renderTagTree(TAG_TREE_DATA, <%= theme.tag_tree.expand_level %>);
+      renderTagTree(TAG_TREE_DATA, <%= theme.tag_tree.expand_level %>, DIRECT_POSTS);
     });
   </script>
 </body>

@@ -31,6 +31,7 @@ menu:
 tag_tree:
   enable: true
   expand_level: 0
+  mode: folder          # "folder" | "frontmatter"
 
 brand: "Notebook"
 description: "Learning Notes"
@@ -38,7 +39,28 @@ description: "Learning Notes"
 
 ## Tag Tree
 
-Use the `tag_tree` front-matter field to place posts in the hierarchical tree:
+The theme provides a hierarchical tag tree on the `/tags/` page. There are two modes controlled by `tag_tree.mode`:
+
+### `mode: folder` (default)
+
+Auto-generates the tree structure from the post's location under `source/_posts/`:
+
+```
+source/_posts/
+├── NCE-02/
+│   └── lessons/
+│       └── Composition/
+│           ├── lesson-1.md    →  tagged under NCE-02/lessons/Composition
+│           └── lesson-2.md    →  tagged under NCE-02/lessons/Composition
+├── quick-note.md              →  rendered as a direct post at root level
+└── todo.md                    →  rendered as a direct post at root level
+```
+
+Posts inside subdirectories are grouped in expandable folders. Posts directly in `_posts/` (no subdirectory) are shown at the root level without a wrapper node. The `tag_tree` front-matter field is **ignored** in this mode.
+
+### `mode: frontmatter`
+
+Uses the `tag_tree` field from each post's front-matter, independent from `tags`:
 
 ```yaml
 title: Getting Started
@@ -47,7 +69,7 @@ tags:
 tag_tree: Tutorials/Getting Started
 ```
 
-This renders as an expandable tree on the `/tags/` page. `tag_tree` is independent from `tags` — see [the main README](../README.md#tag-tree) for details.
+This renders the post under `Tutorials > Getting Started` in the tag tree.
 
 ## License
 

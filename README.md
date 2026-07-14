@@ -157,6 +157,7 @@ description: "A clean Hexo theme for learning notes"
 tag_tree:
   enable: true
   expand_level: 0       # levels auto-expanded (0 = all collapsed)
+  mode: folder          # "folder" (from _posts/ path) | "frontmatter" (from front-matter)
 ```
 
 ### Site config (`site/_config.yml`)
@@ -172,7 +173,25 @@ tag_dir: tags
 
 ## Tag Tree
 
-The tag tree is powered by the `tag_tree` front-matter field — a **separate attribute** from Hexo's built-in `tags`:
+The theme provides two modes for the tag tree, controlled by `tag_tree.mode` in the theme config.
+
+### `mode: folder` (default)
+
+Auto-generates the tree hierarchy from the post's file path under `source/_posts/`:
+
+```
+source/_posts/
+├── Tutorials/
+│   └── Getting-Started/
+│       └── hello-world.md    → tagged under Tutorials/Getting-Started
+├── quick-note.md              → rendered directly at root level
+```
+
+Posts in subdirectories are grouped in expandable folders. Posts directly in `_posts/` are shown at the root level as direct links. The `tag_tree` front-matter field is **ignored** in this mode.
+
+### `mode: frontmatter`
+
+Uses the `tag_tree` front-matter field — a **separate attribute** from Hexo's built-in `tags`:
 
 ```yaml
 ---
@@ -189,7 +208,7 @@ tag_tree: Tutorials/Getting Started
 
 They are independent: a post can have tags without a `tag_tree` (won't appear in the tree), or a `tag_tree` without matching tags.
 
-### Tree rules
+### Tree rules (both modes)
 
 - Posts appear **only at leaf nodes** — internal nodes are expandable folders
 - Sorted alphabetically at each level

@@ -27,6 +27,9 @@ social:
 tag_tree:
   enable: true
   expand_level: 0        # 0 = all collapsed, 1 = expand first level, 2 = expand first two levels
+  # mode: folder  —— generate from _posts/ subdirectory path
+  # mode: frontmatter —— use post.tag_tree from front-matter
+  mode: folder
 
 # === Homepage post list ===
 index:
