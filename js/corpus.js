@@ -4,7 +4,7 @@
   if (!app || typeof CORPUS_DATA === 'undefined') return;
 
   var data = CORPUS_DATA || [];
-  var state = { q: '', tag: 'ALL', showZh: true, zhOverride: {} };
+  var state = { q: '', tag: 'ALL', showZh: false, zhOverride: {} };
   var initialFile = new URLSearchParams(window.location.search).get('file');
   var scrolledToFile = false;
 
