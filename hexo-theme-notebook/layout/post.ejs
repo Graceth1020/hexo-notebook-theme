@@ -53,5 +53,8 @@
   </main>
 
   <%- partial('partials/footer') %>
+  <% if (page.zh_toggle) { %>
+    <script src="<%= url_for('/js/review-zh-toggle.js') %>"></script>
+  <% } %>
 </body>
 </html>

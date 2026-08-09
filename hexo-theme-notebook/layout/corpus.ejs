@@ -10,17 +10,19 @@
     <div class="container container-wide">
       <h1 class="page-title"><%= page.title %></h1>
       <% var corpus = (site.data && site.data.rephrase && site.data.rephrase.corpus) ? site.data.rephrase.corpus[page.corpus_key] : null; %>
-      <% if (!corpus || !corpus.sentences || !corpus.sentences.length) { %>
+      <% var corpusFile = page.corpus_file || null; %>
+      <% var sentences = corpus ? corpus.sentences.filter(function (s) { return corpusFile ? s.source === corpusFile : true; }) : []; %>
+      <% if (!corpus || !sentences.length) { %>
         <p class="corpus-empty">Corpus data not found. Run <code>node tools/import-rephrase.js</code> and rebuild.</p>
       <% } else { %>
         <p class="corpus-meta">
-          <span><%= corpus.files.map(function (f) { return f.file; }).join(', ') %></span>
+          <span><%= corpusFile || corpus.files.map(function (f) { return f.file; }).join(', ') %></span>
           &middot;
-          <span><%= corpus.sentences.length %> sentences</span>
+          <span><%= sentences.length %> sentences</span>
         </p>
         <div id="corpusApp"></div>
         <script>
-          var CORPUS_DATA = <%- JSON.stringify(corpus.sentences).replace(/</g, '\\u003c') %>;
+          var CORPUS_DATA = <%- JSON.stringify(sentences).replace(/</g, '\\u003c') %>;
         </script>
       <% } %>
     </div>
