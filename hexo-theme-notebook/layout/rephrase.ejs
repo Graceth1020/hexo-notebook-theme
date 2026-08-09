@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+  <%- partial('partials/head') %>
+</head>
+<body>
+  <%- partial('partials/header') %>
+
+  <main class="main-content">
+    <div class="container container-wide">
+      <h1 class="page-title">Rephrase Practice</h1>
+      <p class="rephrase-intro">Practice rounds, summaries, and the sentence corpus, imported from <code>days/</code>, <code>summaries/</code>, and <code>corpus/</code>. Folders are shown at whatever depth they exist.</p>
+      <% var trees = (site.data && site.data.rephrase && site.data.rephrase.trees) ? site.data.rephrase.trees : null; %>
+      <% if (!trees) { %>
+        <p class="notes-empty">No rephrase data yet. Run <code>node tools/import-rephrase.js</code> and rebuild.</p>
+      <% } else { %>
+        <div id="rephraseTrees"></div>
+        <script>
+          var REPHRASE_TREES = <%- JSON.stringify(trees).replace(/</g, '\\u003c') %>;
+        </script>
+      <% } %>
+    </div>
+  </main>
+
+  <%- partial('partials/footer') %>
+  <script src="<%= url_for('/js/rephrase-tree.js') %>"></script>
+</body>
+</html>

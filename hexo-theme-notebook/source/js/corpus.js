@@ -1,10 +1,12 @@
-/* Corpus browser: difficulty filter + search + optional Chinese. Vanilla JS, no dependencies. */
+/* Corpus browser: difficulty filter + search + optional Chinese, grouped by source file. Vanilla JS, no dependencies. */
 (function () {
   var app = document.getElementById('corpusApp');
   if (!app || typeof CORPUS_DATA === 'undefined') return;
 
   var data = CORPUS_DATA || [];
   var state = { q: '', tag: 'ALL', showZh: true, zhOverride: {} };
+  var initialFile = new URLSearchParams(window.location.search).get('file');
+  var scrolledToFile = false;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -15,6 +17,10 @@
   function badge(tag) {
     var label = { E: 'Easy', M: 'Medium', H: 'Hard' }[tag] || tag;
     return '<span class="tag-badge tag-' + tag + '">' + label + '</span>';
+  }
+
+  function displayName(file) {
+    return String(file || '').replace(/-clean\.txt$/i, '');
   }
 
   function effectiveZh(s) {
@@ -36,6 +42,18 @@
       '" data-n="' + s.n + '" title="Toggle Chinese translation">ZH</button>';
   }
 
+  function sentenceHtml(s) {
+    return '<div class="corpus-item">' +
+      '<span class="corpus-num">' + s.n + '.</span>' +
+      badge(s.tag) +
+      '<div class="corpus-main">' +
+      '<p class="corpus-text">' + esc(s.text) + '</p>' +
+      (s.zh && effectiveZh(s) ? '<p class="corpus-zh">' + esc(s.zh) + '</p>' : '') +
+      '</div>' +
+      zhRowButton(s) +
+      '</div>';
+  }
+
   function render() {
     var filtered = data.filter(matches);
     var chips = ['ALL', 'E', 'M', 'H'].map(function (t) {
@@ -44,16 +62,21 @@
         t + ' <span class="filter-count">' + count + '</span></button>';
     }).join('');
 
-    var list = filtered.map(function (s) {
-      return '<div class="corpus-item">' +
-        '<span class="corpus-num">' + s.n + '.</span>' +
-        badge(s.tag) +
-        '<div class="corpus-main">' +
-        '<p class="corpus-text">' + esc(s.text) + '</p>' +
-        (s.zh && effectiveZh(s) ? '<p class="corpus-zh">' + esc(s.zh) + '</p>' : '') +
-        '</div>' +
-        zhRowButton(s) +
-        '</div>';
+    var groups = {};
+    filtered.forEach(function (s) {
+      (groups[s.source] = groups[s.source] || []).push(s);
+    });
+    var groupNames = Object.keys(groups);
+    var showHeadings = groupNames.length > 1;
+
+    var list = groupNames.map(function (name) {
+      var items = groups[name].map(sentenceHtml).join('');
+      var heading = showHeadings
+        ? '<h3 class="corpus-group-title">' + esc(displayName(name)) +
+          '<span class="corpus-group-count">' + groups[name].length + '</span></h3>'
+        : '';
+      return '<section class="corpus-group' + (showHeadings ? '' : ' is-single') + '" data-file="' + esc(name) + '">' +
+        heading + '<div class="corpus-list">' + items + '</div></section>';
     }).join('');
 
     app.innerHTML =
@@ -66,7 +89,7 @@
       '<div class="filter-chips">' + chips + '</div>' +
       '</div>' +
       '<p class="corpus-count">' + filtered.length + ' of ' + data.length + ' sentences</p>' +
-      (list ? '<div class="corpus-list">' + list + '</div>' : '<p class="corpus-empty">No sentences match.</p>');
+      (list ? list : '<p class="corpus-empty">No sentences match.</p>');
 
     app.querySelectorAll('.filter-chip').forEach(function (chip) {
       chip.addEventListener('click', function () {
@@ -89,6 +112,16 @@
         render();
       });
     });
+    if (initialFile && !scrolledToFile) {
+      var target = null;
+      app.querySelectorAll('.corpus-group').forEach(function (group) {
+        if (group.getAttribute('data-file') === initialFile) target = group;
+      });
+      if (target) {
+        scrolledToFile = true;
+        target.scrollIntoView({ block: 'start' });
+      }
+    }
   }
 
   render();
