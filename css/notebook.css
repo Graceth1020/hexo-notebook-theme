@@ -532,3 +532,30 @@ code {
   .corpus-toolbar-row { flex-direction: column; }
   .zh-toggle { width: 100%; }
 }
+
+/* === Corpus: group by source file === */
+.corpus-group { margin-top: 18px; }
+.corpus-group:first-of-type { margin-top: 0; }
+.corpus-group-title { font-size: 0.95em; color: #555; font-weight: 650; border-bottom: 1px solid #eceff3; padding-bottom: 6px; margin: 0 0 2px; }
+.corpus-group-count { color: #999; font-size: 0.8em; font-weight: 500; margin-left: 6px; }
+.corpus-group .corpus-list { border-top: 0; }
+.corpus-group.is-single .corpus-list { border-top: 1px solid #eceff3; }
+
+/* === Rephrase hub: folder trees === */
+.rephrase-intro { color: #888; font-size: 0.9em; margin: -6px 0 8px; }
+.rephrase-section { margin: 22px 0; }
+.rephrase-section-title { font-size: 1.15em; margin-bottom: 10px; }
+.tree-root { padding-left: 0; }
+.tree-children { list-style: none; padding-left: 1.4em; margin: 0; display: none; }
+.tree-children.expanded { display: block; }
+.tree-item { margin: 3px 0; }
+.tree-folder-label { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; user-select: none; }
+.tree-folder-label:hover { background: #eef2ff; }
+.tree-label.is-open .tree-arrow { transform: rotate(90deg); }
+.tree-arrow { display: inline-block; width: 14px; color: #999; font-size: 0.8em; transition: transform 0.15s; }
+.tree-name { font-weight: 600; color: #333; }
+.tree-link { color: #3b82f6; text-decoration: none; font-size: 0.92em; }
+.tree-link:hover { text-decoration: underline; }
+.tree-count { color: #999; font-size: 0.8em; margin-left: 6px; }
+.tree-date { color: #999; font-size: 0.78em; margin-left: 8px; }
+.tree-leaf { display: flex; align-items: baseline; padding-left: 1.2em; }
