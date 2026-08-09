@@ -17,6 +17,17 @@
 
       <%- partial('partials/tag-breadcrumb', { post: page }) %>
 
+      <% if (page.summary_path || page.day_path) { %>
+        <nav class="post-related">
+          <% if (page.day_path) { %>
+            <a class="related-link" href="<%= url_for(page.day_path) %>">&larr; Back to Day <%= page.day_num || '' %></a>
+          <% } %>
+          <% if (page.summary_path) { %>
+            <a class="related-link" href="<%= url_for(page.summary_path) %>">View Summary &rarr;</a>
+          <% } %>
+        </nav>
+      <% } %>
+
       <div class="post-body">
         <%- page.content %>
       </div>

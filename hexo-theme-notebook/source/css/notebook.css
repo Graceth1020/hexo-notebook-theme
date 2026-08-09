@@ -464,3 +464,57 @@ code {
   .post-nav { flex-direction: column; }
   .post-nav-next { text-align: left; }
 }
+
+/* === Rephrase & Notes (added on top of the notebook theme) === */
+.container-wide { max-width: 960px; }
+
+/* Day <-> Summary navigation */
+.post-related { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 22px; }
+.related-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid #dbe3ef; border-radius: 8px; background: #fff; color: #3b82f6; font-size: 0.9em; font-weight: 600; text-decoration: none; transition: all 0.15s; }
+.related-link:hover { border-color: #3b82f6; background: #f0f5ff; text-decoration: none; }
+
+/* Corpus browser */
+.corpus-toolbar { display: flex; flex-direction: column; gap: 10px; margin: 18px 0 8px; }
+.corpus-search { padding: 10px 12px; border: 1px solid #dbe3ef; border-radius: 8px; font-size: 0.95em; font-family: inherit; }
+.corpus-search:focus { outline: none; border-color: #3b82f6; }
+.filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-chip { padding: 5px 12px; border: 1px solid #dbe3ef; border-radius: 999px; background: #fff; color: #555; font-size: 0.85em; cursor: pointer; font-family: inherit; }
+.filter-chip:hover { border-color: #3b82f6; color: #3b82f6; }
+.filter-chip.is-active { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+.filter-count { opacity: 0.75; font-size: 0.9em; }
+.corpus-count { color: #888; font-size: 0.85em; margin: 8px 0 14px; }
+.corpus-meta { color: #888; font-size: 0.85em; margin-top: -6px; }
+.corpus-list { border-top: 1px solid #eceff3; }
+.corpus-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 2px; border-bottom: 1px solid #eceff3; }
+.corpus-num { color: #999; font-variant-numeric: tabular-nums; min-width: 2.2em; text-align: right; font-size: 0.9em; padding-top: 2px; }
+.corpus-main { flex: 1; min-width: 0; }
+.corpus-text { font-size: 0.98em; line-height: 1.6; }
+.corpus-zh { color: #777; font-size: 0.88em; margin-top: 2px; }
+.corpus-empty, .notes-empty { color: #888; }
+
+/* Difficulty badges */
+.tag-badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.72em; font-weight: 700; letter-spacing: 0.02em; line-height: 1.6; }
+.tag-E { background: #dcfce7; color: #15803d; }
+.tag-M { background: #fef9c3; color: #a16207; }
+.tag-H { background: #fee2e2; color: #b91c1c; }
+.tag-badge.note-type { background: #e0e7ff; color: #4338ca; }
+
+/* Note cards */
+.note-group { margin: 26px 0; }
+.note-group-title { font-size: 1.1em; margin-bottom: 12px; }
+.note-group-count { color: #999; font-size: 0.85em; font-weight: 500; }
+.note-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.note-card { background: #fff; border: 1px solid #e8ecf1; border-radius: 8px; padding: 14px 16px; }
+.note-card-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.note-card-title { font-size: 1.05em; margin: 0; }
+.note-card-date { color: #999; font-size: 0.78em; margin-left: auto; }
+.note-field { display: flex; flex-direction: column; gap: 2px; padding: 5px 0; border-top: 1px solid #f1f3f6; font-size: 0.9em; }
+.note-field-key { color: #888; font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+.note-field-value { line-height: 1.55; }
+.note-examples { margin: 8px 0 2px; padding-left: 1.2em; color: #444; font-size: 0.9em; }
+.note-examples li { margin: 3px 0; }
+
+@media (max-width: 767px) {
+  .note-cards { grid-template-columns: 1fr; }
+  .corpus-item { flex-wrap: wrap; }
+}

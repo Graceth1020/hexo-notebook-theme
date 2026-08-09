@@ -1,0 +1,64 @@
+/* Corpus browser: difficulty filter + search. Vanilla JS, no dependencies. */
+(function () {
+  var app = document.getElementById('corpusApp');
+  if (!app || typeof CORPUS_DATA === 'undefined') return;
+
+  var data = CORPUS_DATA || [];
+  var state = { q: '', tag: 'ALL' };
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function badge(tag) {
+    var label = { E: 'Easy', M: 'Medium', H: 'Hard' }[tag] || tag;
+    return '<span class="tag-badge tag-' + tag + '">' + label + '</span>';
+  }
+
+  function matches(s) {
+    if (state.tag !== 'ALL' && s.tag !== state.tag) return false;
+    if (!state.q) return true;
+    var q = state.q.toLowerCase();
+    return (s.text + ' ' + (s.zh || '')).toLowerCase().indexOf(q) !== -1;
+  }
+
+  function render() {
+    var filtered = data.filter(matches);
+    var chips = ['ALL', 'E', 'M', 'H'].map(function (t) {
+      var count = t === 'ALL' ? data.length : data.filter(function (s) { return s.tag === t; }).length;
+      return '<button type="button" class="filter-chip' + (state.tag === t ? ' is-active' : '') + '" data-tag="' + t + '">' +
+        t + ' <span class="filter-count">' + count + '</span></button>';
+    }).join('');
+
+    var list = filtered.map(function (s) {
+      return '<div class="corpus-item">' +
+        '<span class="corpus-num">' + s.n + '.</span>' +
+        badge(s.tag) +
+        '<div class="corpus-main">' +
+        '<p class="corpus-text">' + esc(s.text) + '</p>' +
+        (s.zh ? '<p class="corpus-zh">' + esc(s.zh) + '</p>' : '') +
+        '</div></div>';
+    }).join('');
+
+    app.innerHTML =
+      '<div class="corpus-toolbar">' +
+      '<input type="search" id="corpusSearch" class="corpus-search" placeholder="Search sentences or Chinese translation..." value="' + esc(state.q) + '">' +
+      '<div class="filter-chips">' + chips + '</div>' +
+      '</div>' +
+      '<p class="corpus-count">' + filtered.length + ' of ' + data.length + ' sentences</p>' +
+      (list ? '<div class="corpus-list">' + list + '</div>' : '<p class="corpus-empty">No sentences match.</p>');
+
+    app.querySelectorAll('.filter-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        state.tag = chip.getAttribute('data-tag');
+        render();
+      });
+    });
+    var input = document.getElementById('corpusSearch');
+    input.addEventListener('input', function () { state.q = input.value; render(); });
+  }
+
+  render();
+})();
