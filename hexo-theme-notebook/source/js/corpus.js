@@ -1,10 +1,10 @@
-/* Corpus browser: difficulty filter + search. Vanilla JS, no dependencies. */
+/* Corpus browser: difficulty filter + search + optional Chinese. Vanilla JS, no dependencies. */
 (function () {
   var app = document.getElementById('corpusApp');
   if (!app || typeof CORPUS_DATA === 'undefined') return;
 
   var data = CORPUS_DATA || [];
-  var state = { q: '', tag: 'ALL' };
+  var state = { q: '', tag: 'ALL', showZh: true, zhOverride: {} };
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -17,11 +17,23 @@
     return '<span class="tag-badge tag-' + tag + '">' + label + '</span>';
   }
 
+  function effectiveZh(s) {
+    return Object.prototype.hasOwnProperty.call(state.zhOverride, s.n)
+      ? state.zhOverride[s.n]
+      : state.showZh;
+  }
+
   function matches(s) {
     if (state.tag !== 'ALL' && s.tag !== state.tag) return false;
     if (!state.q) return true;
     var q = state.q.toLowerCase();
     return (s.text + ' ' + (s.zh || '')).toLowerCase().indexOf(q) !== -1;
+  }
+
+  function zhRowButton(s) {
+    var on = effectiveZh(s);
+    return '<button type="button" class="corpus-zh-toggle' + (on ? ' is-on' : '') +
+      '" data-n="' + s.n + '" title="Toggle Chinese translation">ZH</button>';
   }
 
   function render() {
@@ -38,13 +50,19 @@
         badge(s.tag) +
         '<div class="corpus-main">' +
         '<p class="corpus-text">' + esc(s.text) + '</p>' +
-        (s.zh ? '<p class="corpus-zh">' + esc(s.zh) + '</p>' : '') +
-        '</div></div>';
+        (s.zh && effectiveZh(s) ? '<p class="corpus-zh">' + esc(s.zh) + '</p>' : '') +
+        '</div>' +
+        zhRowButton(s) +
+        '</div>';
     }).join('');
 
     app.innerHTML =
       '<div class="corpus-toolbar">' +
+      '<div class="corpus-toolbar-row">' +
       '<input type="search" id="corpusSearch" class="corpus-search" placeholder="Search sentences or Chinese translation..." value="' + esc(state.q) + '">' +
+      '<button type="button" id="zhGlobal" class="zh-toggle' + (state.showZh ? ' is-active' : '') + '" title="Show or hide all Chinese translations">' +
+      (state.showZh ? 'Hide Chinese' : 'Show Chinese') + '</button>' +
+      '</div>' +
       '<div class="filter-chips">' + chips + '</div>' +
       '</div>' +
       '<p class="corpus-count">' + filtered.length + ' of ' + data.length + ' sentences</p>' +
@@ -58,6 +76,19 @@
     });
     var input = document.getElementById('corpusSearch');
     input.addEventListener('input', function () { state.q = input.value; render(); });
+    var zhGlobal = document.getElementById('zhGlobal');
+    zhGlobal.addEventListener('click', function () {
+      state.showZh = !state.showZh;
+      state.zhOverride = {};
+      render();
+    });
+    app.querySelectorAll('.corpus-zh-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var n = +btn.getAttribute('data-n');
+        state.zhOverride[n] = !effectiveZh({ n: n });
+        render();
+      });
+    });
   }
 
   render();
