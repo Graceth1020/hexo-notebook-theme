@@ -98,7 +98,15 @@
       });
     });
     var input = document.getElementById('corpusSearch');
-    input.addEventListener('input', function () { state.q = input.value; render(); });
+    input.addEventListener('input', function () {
+      state.q = input.value;
+      render();
+      var next = document.getElementById('corpusSearch');
+      if (next && document.activeElement !== next) {
+        next.focus();
+        try { next.setSelectionRange(next.value.length, next.value.length); } catch (e) {}
+      }
+    });
     var zhGlobal = document.getElementById('zhGlobal');
     zhGlobal.addEventListener('click', function () {
       state.showZh = !state.showZh;
