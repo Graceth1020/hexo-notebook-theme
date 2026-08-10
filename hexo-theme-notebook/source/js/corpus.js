@@ -98,14 +98,18 @@
       });
     });
     var input = document.getElementById('corpusSearch');
+    var debounceTimer = null;
     input.addEventListener('input', function () {
       state.q = input.value;
-      render();
-      var next = document.getElementById('corpusSearch');
-      if (next && document.activeElement !== next) {
-        next.focus();
-        try { next.setSelectionRange(next.value.length, next.value.length); } catch (e) {}
-      }
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function () {
+        render();
+        var next = document.getElementById('corpusSearch');
+        if (next && document.activeElement !== next) {
+          next.focus();
+          try { next.setSelectionRange(next.value.length, next.value.length); } catch (e) {}
+        }
+      }, 400);
     });
     var zhGlobal = document.getElementById('zhGlobal');
     zhGlobal.addEventListener('click', function () {
