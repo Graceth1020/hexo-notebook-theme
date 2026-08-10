@@ -84,14 +84,18 @@
       });
     });
     var input = document.getElementById('notesSearch');
+    var debounceTimer = null;
     input.addEventListener('input', function () {
       state.q = input.value;
-      render();
-      var next = document.getElementById('notesSearch');
-      if (next && document.activeElement !== next) {
-        next.focus();
-        try { next.setSelectionRange(next.value.length, next.value.length); } catch (e) {}
-      }
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function () {
+        render();
+        var next = document.getElementById('notesSearch');
+        if (next && document.activeElement !== next) {
+          next.focus();
+          try { next.setSelectionRange(next.value.length, next.value.length); } catch (e) {}
+        }
+      }, 400);
     });
   }
 
