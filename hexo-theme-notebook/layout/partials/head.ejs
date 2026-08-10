@@ -3,6 +3,17 @@
 <title><%= page.title ? page.title + ' | ' + config.title : config.title %></title>
 <meta name="description" content="<%= page.description || config.description %>">
 
+<!-- Theme init: avoid flash of wrong theme -->
+<script>
+(function () {
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  var dark = saved === 'dark' ||
+    (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+})();
+</script>
+
 <!-- 主题 CSS -->
 <link rel="stylesheet" href="<%= url_for('/css/notebook.css') %>">
 
