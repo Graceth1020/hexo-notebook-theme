@@ -84,7 +84,15 @@
       });
     });
     var input = document.getElementById('notesSearch');
-    input.addEventListener('input', function () { state.q = input.value; render(); });
+    input.addEventListener('input', function () {
+      state.q = input.value;
+      render();
+      var next = document.getElementById('notesSearch');
+      if (next && document.activeElement !== next) {
+        next.focus();
+        try { next.setSelectionRange(next.value.length, next.value.length); } catch (e) {}
+      }
+    });
   }
 
   render();
