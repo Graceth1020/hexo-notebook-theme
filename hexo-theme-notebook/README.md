@@ -37,6 +37,28 @@ brand: "Notebook"
 description: "Learning Notes"
 ```
 
+## Grouped Nav Items
+
+A `menu` value is normally a path. Give it a map instead and it renders as a
+dropdown, which keeps the bar short on sites that grow many sections:
+
+```yaml
+menu:
+  Home: /
+  Learning:
+    Overview: /learning
+    Daily Chat: /chat
+    Coach: /coach
+  Tags: /tags
+```
+
+Nesting is one level deep by design - the nav is a shortcut, not a sitemap, so
+deeper structure belongs on a landing page. The group opens on hover for mouse
+users and on click/tap elsewhere (`source/js/nav-group.js`), and the item
+matching the current URL gets `.is-active`, with its parent group highlighted
+too. On mobile the group becomes a labelled, indented block rather than a
+dropdown, since a slide-out panel has the room to show everything at once.
+
 ## Tag Tree
 
 The theme provides a hierarchical tag tree on the `/tags/` page. There are two modes controlled by `tag_tree.mode`:

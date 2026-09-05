@@ -5,10 +5,52 @@
     </a>
 
     <div class="header-right">
+      <%
+        // A menu value may be a string (plain link) or an object (submenu:
+        // { Label: path }). Nesting stops at one level on purpose - the nav is
+        // a shortcut, not a sitemap; deeper structure belongs on a hub page.
+
+        // page.path is 'chat/index.html' for a page but '/chat/days/x/' for a
+        // post with an explicit permalink, and url_for() prefixes config.root
+        // only when the value is not already absolute. Normalising both sides
+        // to a rootless, extension-less, slash-trimmed form is what makes the
+        // comparison hold for pages, posts and permalinks alike.
+        var siteRoot = (config.root || '/');
+        function normalise(p) {
+          var v = String(p == null ? '' : p).split(/[?#]/)[0];
+          if (v.indexOf(siteRoot) === 0) v = v.slice(siteRoot.length);
+          return v.replace(/index\.html?$/, '').replace(/^\/+|\/+$/g, '');
+        }
+        var here = normalise(page.path);
+        function isCurrent(p) {
+          if (!p || p === '/') return false;
+          var target = normalise(p);
+          if (!target) return false;
+          return here === target || here.indexOf(target + '/') === 0;
+        }
+        function anyCurrent(group) {
+          return Object.keys(group).some(function (k) { return isCurrent(group[k]); });
+        }
+      %>
       <nav class="nav-desktop" id="navDesktop">
         <% if (theme.menu) { %>
-          <% for (const [label, path] of Object.entries(theme.menu)) { if (!path) continue; %>
-            <a class="nav-link" href="<%= url_for(path) %>"><%= label %></a>
+          <% for (const [label, target] of Object.entries(theme.menu)) { %>
+            <% if (target && typeof target === 'object') { %>
+              <% var openHere = anyCurrent(target); %>
+              <div class="nav-group<%= openHere ? ' is-active' : '' %>">
+                <button type="button" class="nav-link nav-group-toggle" aria-expanded="false">
+                  <%= label %>
+                  <svg class="nav-caret" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="nav-dropdown">
+                  <% for (const [subLabel, subPath] of Object.entries(target)) { if (!subPath) continue; %>
+                    <a class="nav-dropdown-link<%= isCurrent(subPath) ? ' is-active' : '' %>" href="<%= url_for(subPath) %>"><%= subLabel %></a>
+                  <% } %>
+                </div>
+              </div>
+            <% } else if (target) { %>
+              <a class="nav-link<%= isCurrent(target) ? ' is-active' : '' %>" href="<%= url_for(target) %>"><%= label %></a>
+            <% } %>
           <% } %>
         <% } %>
       </nav>
@@ -38,8 +80,17 @@
       <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
       <nav class="mobile-nav-links">
         <% if (theme.menu) { %>
-          <% for (const [label, path] of Object.entries(theme.menu)) { if (!path) continue; %>
-            <a class="mobile-nav-link" href="<%= url_for(path) %>"><%= label %></a>
+          <% for (const [label, target] of Object.entries(theme.menu)) { %>
+            <% if (target && typeof target === 'object') { %>
+              <div class="mobile-nav-group">
+                <span class="mobile-nav-group-label"><%= label %></span>
+                <% for (const [subLabel, subPath] of Object.entries(target)) { if (!subPath) continue; %>
+                  <a class="mobile-nav-link mobile-nav-sublink<%= isCurrent(subPath) ? ' is-active' : '' %>" href="<%= url_for(subPath) %>"><%= subLabel %></a>
+                <% } %>
+              </div>
+            <% } else if (target) { %>
+              <a class="mobile-nav-link<%= isCurrent(target) ? ' is-active' : '' %>" href="<%= url_for(target) %>"><%= label %></a>
+            <% } %>
           <% } %>
         <% } %>
         <% if (theme.social && theme.social.github) { %>

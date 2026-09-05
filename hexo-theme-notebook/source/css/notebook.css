@@ -213,6 +213,64 @@ code {
   transition: color 0.2s;
 }
 .nav-link:hover { color: #3b82f6; text-decoration: none; }
+.nav-link.is-active { color: #3b82f6; }
+
+/* 分组导航（一级下拉） */
+.nav-group { position: relative; }
+.nav-group-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  color: #555;
+}
+.nav-group-toggle:hover { color: #3b82f6; }
+.nav-group.is-active > .nav-group-toggle { color: #3b82f6; }
+.nav-caret { transition: transform 0.2s; }
+.nav-group.is-open .nav-caret { transform: rotate(180deg); }
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 170px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.1);
+  z-index: 60;
+}
+.nav-group.is-open .nav-dropdown { display: block; }
+/* 悬停即展开（指针设备），触屏靠点击 */
+@media (hover: hover) {
+  .nav-group:hover .nav-dropdown { display: block; }
+  .nav-group:hover .nav-caret { transform: rotate(180deg); }
+}
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+.nav-dropdown-link {
+  display: block;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap;
+}
+.nav-dropdown-link:hover { background: #eef2ff; color: #3b82f6; text-decoration: none; }
+.nav-dropdown-link.is-active { color: #3b82f6; font-weight: 600; }
 .github-icon { vertical-align: middle; }
 
 /* 右侧区域：导航链接 + 操作区 */
@@ -286,6 +344,16 @@ code {
 }
 .mobile-nav-link:hover { color: #3b82f6; text-decoration: none; }
 .mobile-nav-github { display: flex; align-items: center; gap: 8px; color: #999; }
+.mobile-nav-group { display: flex; flex-direction: column; gap: 16px; }
+.mobile-nav-group-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9aa4ae;
+}
+.mobile-nav-sublink { padding-left: 14px; }
+.mobile-nav-link.is-active { color: #3b82f6; }
 
 /* === 文章列表 === */
 .post-list { display: flex; flex-direction: column; gap: 32px; }
@@ -675,6 +743,20 @@ html[data-theme="dark"] .mobile-nav-close:hover { color: #e8edf2; }
 html[data-theme="dark"] .mobile-nav-link { color: #c9d2da; border-bottom-color: #2b333c; }
 html[data-theme="dark"] .mobile-nav-link:hover { color: #6ba3f5; }
 html[data-theme="dark"] .mobile-nav-github { color: #8b96a1; }
+html[data-theme="dark"] .nav-group-toggle { color: #c9d2da; }
+html[data-theme="dark"] .nav-group-toggle:hover,
+html[data-theme="dark"] .nav-group.is-active > .nav-group-toggle { color: #6ba3f5; }
+html[data-theme="dark"] .nav-link.is-active { color: #6ba3f5; }
+html[data-theme="dark"] .nav-dropdown {
+  background: #1c2229;
+  border-color: #2b333c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+html[data-theme="dark"] .nav-dropdown-link { color: #c9d2da; }
+html[data-theme="dark"] .nav-dropdown-link:hover { background: #242c35; color: #6ba3f5; }
+html[data-theme="dark"] .nav-dropdown-link.is-active { color: #6ba3f5; }
+html[data-theme="dark"] .mobile-nav-group-label { color: #7d8792; }
+html[data-theme="dark"] .mobile-nav-link.is-active { color: #6ba3f5; }
 
 /* Posts / lists */
 html[data-theme="dark"] .post-card { border-bottom-color: #2b333c; }

@@ -10,9 +10,15 @@ brand: "My Notebook"
 description: "Personal Learning Notes"
 
 # === Navigation menu ===
+# A value may be a path, or a map to render that item as a dropdown
+# (one level deep). Use a group when the bar would otherwise grow a tab
+# per section.
 menu:
   Home: /
   Archive: /archives
+  # Learning:
+  #   Overview: /learning
+  #   Daily Chat: /chat
   Tags: /tags
 
 # === Social links (leave blank to hide) ===
