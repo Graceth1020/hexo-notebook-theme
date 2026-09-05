@@ -22,10 +22,14 @@
           return v.replace(/index\.html?$/, '').replace(/^\/+|\/+$/g, '');
         }
         var here = normalise(page.path);
+        // A root target ('/' or config.root) normalises to '', and '' is a
+        // prefix of every path, so prefix-matching it would light up every tab.
+        // It is a real destination now that the home page carries content, so
+        // match it exactly instead of refusing to match it at all.
         function isCurrent(p) {
-          if (!p || p === '/') return false;
+          if (!p) return false;
           var target = normalise(p);
-          if (!target) return false;
+          if (!target) return here === '';
           return here === target || here.indexOf(target + '/') === 0;
         }
         function anyCurrent(group) {
